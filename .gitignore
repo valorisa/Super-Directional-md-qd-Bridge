@@ -6,3 +6,5 @@ venv/
 *.egg-info/
 dist/
 build/
+tests/output_md/
+tests/output_qd/

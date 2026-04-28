@@ -50,6 +50,8 @@ def convert_md_to_qd(md_content: str) -> str:
     # Regex pour capturer le contenu entre :::
     def replace_pandoc_blocks(match):
         cls = match.group(1).strip() if match.group(1) else ""
+        # Nettoie le point initial typique de la syntaxe Pandoc (.class -> class)
+        cls = cls.lstrip('.')
         content = match.group(2).strip()
         return f'<div class="{cls}">\n{content}\n</div>'
 

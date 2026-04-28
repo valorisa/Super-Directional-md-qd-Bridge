@@ -26,7 +26,7 @@ def md_to_qd_cmd(input, output):
 
     click.echo(f"Conversion de {input} vers {output}...")
     md_to_qd_process(input, output)
-    click.echo("✅ Conversion .md -> .qd terminée.")
+    click.echo("[OK] Conversion .md -> .qd terminee.")
 
 
 @main.command("qd-to-md")
@@ -41,7 +41,7 @@ def qd_to_md_cmd(input, output):
 
     click.echo(f"Conversion de {input} vers {output}...")
     qd_to_md_process(input, output)
-    click.echo("✅ Conversion .qd -> .md terminée.")
+    click.echo("[OK] Conversion .qd -> .md terminee.")
 
 
 @main.command("batch")
@@ -72,7 +72,7 @@ def batch_cmd(source, dest, direction, recursive):
         count += 1
         click.echo(f"  Traité : {file_path.name}")
 
-    click.echo(f"✅ {count} fichier(s) converti(s).")
+    click.echo(f"[OK] {count} fichier(s) converti(s).")
 
 
 if __name__ == "__main__":
