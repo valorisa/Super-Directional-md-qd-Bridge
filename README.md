@@ -65,7 +65,7 @@
 
 Quarkdown, développé par [iamgio](https://github.com/iamgio/quarkdown), représente une évolution majeure du langage Markdown traditionnel. En transformant Markdown en un véritable langage de programmation Turing-complet, Quarkdown permet l'utilisation de fonctions, variables, boucles et conditions directement dans le texte. Cependant, cette puissance introduit une rupture de compatibilité avec l'écosystème Markdown existant.
 
-Le projet **Super-Directional-md-qd-Bridge** se positionne comme la solution de pont technologique permettant une transition fluide entre ces deux mondes. Que vous souhaitiez migrer vos documents Markdown existants vers Quarkdown pour profiter de ses capacités de typographie avancée, ou inversement exporter vos documents Quarkdown vers un format Markdown standard pour une publication sur des plateformes comme GitHub ou GitLab, cet outil répond à vos besoins.
+Le projet **Super-Bidirectional-md-qd-Bridge** se positionne comme la solution de pont technologique permettant une transition fluide entre ces deux mondes. Que vous souhaitiez migrer vos documents Markdown existants vers Quarkdown pour profiter de ses capacités de typographie avancée, ou inversement exporter vos documents Quarkdown vers un format Markdown standard pour une publication sur des plateformes comme GitHub ou GitLab, cet outil répond à vos besoins.
 
 ## Pourquoi ce projet
 
