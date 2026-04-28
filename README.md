@@ -75,22 +75,22 @@ Quarkdown simplifie ce workflow en intégrant nativement l'export vers HTML, PDF
 
 **Super-Directional-md-qd-Bridge** résout ce problème en :
 
-1.  **Automatisant la migration** : Convertit les fichiers `.md` existants en `.qd` en nettoyant le front-matter et en adaptant la syntaxe.
-2.  **Préservant la compatibilité** : Convertit les fichiers `.qd` en `.md` pour une lecture sur les plateformes ne supportant pas Quarkdown.
-3.  **Gérant les spécificités** : Traite les extensions Pandoc, les blocs HTML imbriqués et les métadonnées YAML.
-4.  **Assurant la réversibilité** : Permet un aller-retour sans perte majeure de données structurées.
+1. **Automatisant la migration** : Convertit les fichiers `.md` existants en `.qd` en nettoyant le front-matter et en adaptant la syntaxe.
+2. **Préservant la compatibilité** : Convertit les fichiers `.qd` en `.md` pour une lecture sur les plateformes ne supportant pas Quarkdown.
+3. **Gérant les spécificités** : Traite les extensions Pandoc, les blocs HTML imbriqués et les métadonnées YAML.
+4. **Assurant la réversibilité** : Permet un aller-retour sans perte majeure de données structurées.
 
 ## Fonctionnalités
 
--   **Conversion bidirectionnelle** : `.md` vers `.qd` et `.qd` vers `.md`.
--   **Gestion intelligente du Front-Matter** : Extraction, transformation et réinjection des métadonnées YAML.
--   **Compatibilité Pandoc** : Remplacement ou adaptation des extensions spécifiques à Pandoc (notes de bas de page, blocs personnalisés `:::`).
--   **Préservation de la syntaxe standard** : Les éléments Markdown standards (titres, listes, liens, images) restent inchangés.
--   **Interface en ligne de commande (CLI)** : Facile à intégrer dans des scripts PowerShell ou des pipelines CI/CD.
--   **Traitement par lot (Batch)** : Conversion récursive de dossiers entiers avec préservation de l'arborescence.
--   **Verbosité configurable** : Modes silencieux ou verbeux pour le débogage.
--   **Gestion d'erreurs robuste** : Détection des fichiers manquants et gestion des encodages.
--   **Tests unitaires complets** : Suite de tests pytest couvrant les cas limites.
+- **Conversion bidirectionnelle** : `.md` vers `.qd` et `.qd` vers `.md`.
+- **Gestion intelligente du Front-Matter** : Extraction, transformation et réinjection des métadonnées YAML.
+- **Compatibilité Pandoc** : Remplacement ou adaptation des extensions spécifiques à Pandoc (notes de bas de page, blocs personnalisés `:::`).
+- **Préservation de la syntaxe standard** : Les éléments Markdown standards (titres, listes, liens, images) restent inchangés.
+- **Interface en ligne de commande (CLI)** : Facile à intégrer dans des scripts PowerShell ou des pipelines CI/CD.
+- **Traitement par lot (Batch)** : Conversion récursive de dossiers entiers avec préservation de l'arborescence.
+- **Verbosité configurable** : Modes silencieux ou verbeux pour le débogage.
+- **Gestion d'erreurs robuste** : Détection des fichiers manquants et gestion des encodages.
+- **Tests unitaires complets** : Suite de tests pytest couvrant les cas limites.
 
 ## Architecture du projet
 
@@ -153,9 +153,9 @@ Ce module gère la transformation du Markdown standard vers le format Quarkdown.
 
 **Logique de conversion :**
 
-1.  **Parsing du Front-Matter** : Utilisation de la bibliothèque `python-frontmatter` pour extraire les métadonnées YAML.
-2.  **Filtrage des clés** : Seules les clés autorisées (`title`, `lang`, `author`, `tags`, `date`) sont conservées.
-3.  **Transformation en directives** : Les métadonnées sont converties en directives Quarkdown (`.key {value}`).
+1. **Parsing du Front-Matter** : Utilisation de la bibliothèque `python-frontmatter` pour extraire les métadonnées YAML.
+2. **Filtrage des clés** : Seules les clés autorisées (`title`, `lang`, `author`, `tags`, `date`) sont conservées.
+3. **Transformation en directives** : Les métadonnées sont converties en directives Quarkdown (`.key {value}`).
 
 **Extrait du code de transformation :**
 
@@ -206,9 +206,9 @@ directive_match = re.match(r"\.(\w+)\s*\{([^}]+)\}", line)
 
 Construit avec la bibliothèque `Click`, ce module offre trois commandes principales :
 
-1.  `md-to-qd` : Conversion unique Markdown vers Quarkdown.
-2.  `qd-to-md` : Conversion unique Quarkdown vers Markdown.
-3.  `batch` : Conversion par lot avec options récursives.
+1. `md-to-qd` : Conversion unique Markdown vers Quarkdown.
+2. `qd-to-md` : Conversion unique Quarkdown vers Markdown.
+3. `batch` : Conversion par lot avec options récursives.
 
 **Gestion de l'encodage Windows :**
 
@@ -225,20 +225,20 @@ click.echo("[OK] Conversion .md -> .qd terminee.")
 
 L'algorithme suit ces étapes pour `.md` vers `.qd` :
 
-1.  **Détection** : Le parser `frontmatter` identifie le bloc `---...---`.
-2.  **Parsing** : Les métadonnées sont chargées dans un dictionnaire Python.
-3.  **Filtrage** : Application d'une liste blanche de clés (`allowed_keys`).
-4.  **Formatage** : Pour chaque clé :
-    - Si valeur = liste → jointure avec `, `.
+1. **Détection** : Le parser `frontmatter` identifie le bloc `---...---`.
+2. **Parsing** : Les métadonnées sont chargées dans un dictionnaire Python.
+3. **Filtrage** : Application d'une liste blanche de clés (`allowed_keys`).
+4. **Formatage** : Pour chaque clé :
+    - Si valeur = liste → jointure avec `,`.
     - Sinon → utilisation directe.
-5.  **Injection** : Ajout en haut du fichier sous forme `.key {value}`.
+5. **Injection** : Ajout en haut du fichier sous forme `.key {value}`.
 
 ### Gestion des expressions régulières
 
 Plusieurs regex sont utilisées pour le nettoyage :
 
 | Pattern | Usage | Exemple |
-|---------|-------|---------|
+| ------- | ------ | ------- |
 | `\^\[([^\]]+)\]` | Notes de bas de page Pandoc | `^[note]` → `<!-- Note: note -->` |
 | `:::\s*\{([^}]+)\}\s*\n?(.*?):::` | Blocs Pandoc | `::: {.warning}...:::` → `<div class="warning">...</div>` |
 | `\.(\w+)\s*\{([^}]+)\}` | Directives Quarkdown | `.title {Mon Titre}` |
@@ -247,10 +247,10 @@ Plusieurs regex sont utilisées pour le nettoyage :
 
 ## Prérequis
 
--   **Python** : Version 3.9 ou supérieure.
--   **PowerShell** : Version 7.6.1 ou supérieure (pour l'exécution sous Windows).
--   **Pip** : Gestionnaire de paquets Python (généralement inclus avec Python).
--   **Git** : Pour le contrôle de version.
+- **Python** : Version 3.9 ou supérieure.
+- **PowerShell** : Version 7.6.1 ou supérieure (pour l'exécution sous Windows).
+- **Pip** : Gestionnaire de paquets Python (généralement inclus avec Python).
+- **Git** : Pour le contrôle de version.
 
 ## Installation
 
@@ -315,8 +315,8 @@ python -m md_qd_bridge.cli md-to-qd --input "C:\Users\bbrod\Documents\article.md
 
 **Options spécifiques :**
 
--   `--strip-pandoc` : Supprime agressivement les extensions Pandoc non supportées.
--   `--keep-html` : Conserve les balises HTML intactes (par défaut, tentative d'adaptation).
+- `--strip-pandoc` : Supprime agressivement les extensions Pandoc non supportées.
+- `--keep-html` : Conserve les balises HTML intactes (par défaut, tentative d'adaptation).
 
 ### Conversion Quarkdown vers Markdown (.qd → .md)
 
@@ -328,7 +328,7 @@ python -m md_qd_bridge.cli qd-to-md --input "C:\Users\bbrod\Documents\presentati
 
 **Options spécifiques :**
 
--   `--simplify` : Transforme les fonctions Quarkdown complexes en éléments Markdown simples (peut entraîner une perte de dynamisme).
+- `--simplify` : Transforme les fonctions Quarkdown complexes en éléments Markdown simples (peut entraîner une perte de dynamisme).
 
 ### Conversion par lot (Batch)
 
@@ -343,7 +343,7 @@ python -m md_qd_bridge.cli batch --source "C:\Users\bbrod\Projets\docs-md" --des
 ### Options avancées
 
 | Option | Description |
-|--------|-------------|
+| ------- | ----------- |
 | `--verbose` | Affiche les détails du processus de conversion. |
 | `--dry-run` | Simule la conversion sans écrire de fichiers. |
 | `--recursive` | Parcourt les sous-dossiers lors d'une conversion par lot. |
@@ -386,7 +386,7 @@ Ceci est un paragraphe généré dynamiquement.
 ### Mappage des éléments
 
 | Élément Markdown | Élément Quarkdown | Note de conversion |
-|------------------|-------------------|--------------------|
+| ----------------- | ----------------- | ------------------ |
 | `---` (Front-Matter) | Directives `.key {value}` | Le YAML est parsé et transformé en directives Quarkdown. |
 | `^[note]` | `.footnote{note}` | Adaptation des notes de bas de page Pandoc. |
 | `::: {.class} ...` | `<div class="..."> ...` | Les blocs spéciaux sont transformés en divs compatibles. |
@@ -396,20 +396,21 @@ Ceci est un paragraphe généré dynamiquement.
 
 Pandoc introduit des syntaxes qui ne sont pas nativement comprises par Quarkdown. Le convertisseur applique les règles suivantes :
 
-1.  **Blocs personnalisés** : `::: {.class}` est converti en syntaxe de module Quarkdown ou en `<div>`. Le point initial est supprimé (`.warning` devient `warning`).
-2.  **Notes de bas de page** : Les notes inline `^[...]` sont extraites et transformées en commentaires HTML `<!-- Note: ... -->` pour préserver l'information sans casser le parsing.
-3.  **Inclusions** : Les commandes d'inclusion spécifiques sont commentées ou remplacées par les équivalents Quarkdown `.include`.
+1. **Blocs personnalisés** : `::: {.class}` est converti en syntaxe de module Quarkdown ou en `<div>`. Le point initial est supprimé (`.warning` devient `warning`).
+2. **Notes de bas de page** : Les notes inline `^[...]` sont extraites et transformées en commentaires HTML `<!-- Note: ... -->` pour préserver l'information sans casser le parsing.
+3. **Inclusions** : Les commandes d'inclusion spécifiques sont commentées ou remplacées par les équivalents Quarkdown `.include`.
 
 ## Gestion du Front-Matter
 
 Le Front-Matter YAML (utilisé par Jekyll, Hugo, etc.) est traité comme suit lors d'une conversion `.md` vers `.qd` :
 
--   **Extraction** : Le bloc `---` est retiré du corps du texte via `python-frontmatter`.
--   **Filtrage** : Seules les clés `title`, `lang`, `author`, `tags`, `date` sont conservées par défaut.
--   **Transformation** : Chaque ligne est convertie en directive Quarkdown `.key {value}`.
+- **Extraction** : Le bloc `---` est retiré du corps du texte via `python-frontmatter`.
+- **Filtrage** : Seules les clés `title`, `lang`, `author`, `tags`, `date` sont conservées par défaut.
+- **Transformation** : Chaque ligne est convertie en directive Quarkdown `.key {value}`.
 
 Exemple de transformation :
 
+<!-- markdownlint-disable-next-line MD036 -->
 **Markdown (Entrée)**
 
 ```yaml
@@ -421,6 +422,7 @@ layout: post
 ---
 ```
 
+<!-- markdownlint-disable-next-line MD036 -->
 **Quarkdown (Sortie)**
 
 ```markdown
@@ -434,10 +436,10 @@ layout: post
 
 Le convertisseur intègre plusieurs couches de gestion d'erreurs :
 
-1.  **Fichier introuvable** : Lève `FileNotFoundError` avec un message explicite.
-2.  **Erreur d'encodage** : Force l'UTF-8 à la lecture et l'écriture.
-3.  **Erreur de parsing YAML** : Si le Front-Matter est mal formé, le fichier est traité comme du texte brut.
-4.  **Extension de fichier** : Avertissement si l'extension ne correspond pas au type attendu (mais conversion tout de même tentée).
+1. **Fichier introuvable** : Lève `FileNotFoundError` avec un message explicite.
+2. **Erreur d'encodage** : Force l'UTF-8 à la lecture et l'écriture.
+3. **Erreur de parsing YAML** : Si le Front-Matter est mal formé, le fichier est traité comme du texte brut.
+4. **Extension de fichier** : Avertissement si l'extension ne correspond pas au type attendu (mais conversion tout de même tentée).
 
 ## Exemples concrets
 
@@ -594,9 +596,9 @@ test:
 
 Les tests sont organisés dans le dossier `tests/` :
 
--   `test_converter.py` : Tests unitaires pour les fonctions de conversion.
--   `samples_md/` : Fichiers Markdown d'exemple pour les tests manuels.
--   `samples_qd/` : Fichiers Quarkdown d'exemple pour les tests manuels.
+- `test_converter.py` : Tests unitaires pour les fonctions de conversion.
+- `samples_md/` : Fichiers Markdown d'exemple pour les tests manuels.
+- `samples_qd/` : Fichiers Quarkdown d'exemple pour les tests manuels.
 
 ### Exécution des tests
 
@@ -623,37 +625,37 @@ tests/test_converter.py::TestQdToMd::test_no_directive_no_yaml PASSED
 
 Les contributions sont les bienvenues ! Si vous souhaitez contribuer :
 
-1.  Forkez le projet.
-2.  Créez une branche pour votre fonctionnalité (`git checkout -b feature/ma-super-feature`).
-3.  Commitez vos changements (`git commit -m 'Ajout de ma super feature'`).
-4.  Pushez vers la branche (`git push origin feature/ma-super-feature`).
-5.  Ouvrez une Pull Request.
+1. Forkez le projet.
+2. Créez une branche pour votre fonctionnalité (`git checkout -b feature/ma-super-feature`).
+3. Commitez vos changements (`git commit -m 'Ajout de ma super feature'`).
+4. Pushez vers la branche (`git push origin feature/ma-super-feature`).
+5. Ouvrez une Pull Request.
 
 **Standards de code :**
 
--   Respect de PEP 8.
--   Tests unitaires requis pour les nouvelles fonctionnalités.
--   Documentation des fonctions avec docstrings.
+- Respect de PEP 8.
+- Tests unitaires requis pour les nouvelles fonctionnalités.
+- Documentation des fonctions avec docstrings.
 
 ## Roadmap
 
--   [x] Conversion de base `.md` vers `.qd`.
--   [x] Gestion du Front-Matter YAML.
--   [x] Conversion inverse `.qd` vers `.md`.
--   [x] Tests unitaires complets (7/7).
--   [ ] Support des fonctions logiques Quarkdown dans la conversion inverse.
--   [ ] Interface graphique (GUI) basée sur Tkinter ou PyQt.
--   [ ] Support des thèmes de conversion personnalisables.
--   [ ] Gestion des tableaux Markdown complexes.
--   [ ] Mode watch (surveillance des modifications de fichiers).
+- [x] Conversion de base `.md` vers `.qd`.
+- [x] Gestion du Front-Matter YAML.
+- [x] Conversion inverse `.qd` vers `.md`.
+- [x] Tests unitaires complets (7/7).
+- [ ] Support des fonctions logiques Quarkdown dans la conversion inverse.
+- [ ] Interface graphique (GUI) basée sur Tkinter ou PyQt.
+- [ ] Support des thèmes de conversion personnalisables.
+- [ ] Gestion des tableaux Markdown complexes.
+- [ ] Mode watch (surveillance des modifications de fichiers).
 
 ## Performance
 
 Le convertisseur est optimisé pour traiter des fichiers de taille moyenne à grande :
 
--   **Temps de conversion** : ~50ms par fichier de 1000 lignes.
--   **Utilisation mémoire** : <10MB pour le processus de base.
--   **Traitement par lot** : Utilisation de `pathlib.glob` pour une recherche efficace des fichiers.
+- **Temps de conversion** : ~50ms par fichier de 1000 lignes.
+- **Utilisation mémoire** : <10MB pour le processus de base.
+- **Traitement par lot** : Utilisation de `pathlib.glob` pour une recherche efficace des fichiers.
 
 ## Licence
 
@@ -661,17 +663,17 @@ Ce projet est distribué sous la licence MIT. Voir le fichier [LICENSE](LICENSE)
 
 ## Remerciements
 
--   **iamgio** pour le développement de [Quarkdown](https://github.com/iamgio/quarkdown), un outil révolutionnaire pour la typographie moderne.
--   La communauté **Pandoc** pour avoir défini des standards de conversion de documents.
--   Les mainteneurs de **python-frontmatter** et **Click** pour leurs bibliothèques robustes.
--   Tous les contributeurs qui aident à améliorer ce pont technologique.
+- **iamgio** pour le développement de [Quarkdown](https://github.com/iamgio/quarkdown), un outil révolutionnaire pour la typographie moderne.
+- La communauté **Pandoc** pour avoir défini des standards de conversion de documents.
+- Les mainteneurs de **python-frontmatter** et **Click** pour leurs bibliothèques robustes.
+- Tous les contributeurs qui aident à améliorer ce pont technologique.
 
 ## Contact
 
--   **Auteur** : valorisa
--   **GitHub** : [https://github.com/valorisa](https://github.com/valorisa)
--   **Projet** : [https://github.com/valorisa/Super-Directional-md-qd-Bridge](https://github.com/valorisa/Super-Directional-md-qd-Bridge)
--   **Issues** : [https://github.com/valorisa/Super-Directional-md-qd-Bridge/issues](https://github.com/valorisa/Super-Directional-md-qd-Bridge/issues)
+- **Auteur** : valorisa
+- **GitHub** : [https://github.com/valorisa](https://github.com/valorisa)
+- **Projet** : [https://github.com/valorisa/Super-Directional-md-qd-Bridge](https://github.com/valorisa/Super-Directional-md-qd-Bridge)
+- **Issues** : [https://github.com/valorisa/Super-Directional-md-qd-Bridge/issues](https://github.com/valorisa/Super-Directional-md-qd-Bridge/issues)
 
 ---
 
