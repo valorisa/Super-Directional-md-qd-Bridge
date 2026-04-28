@@ -5,7 +5,7 @@ lang: fr
 tags: [python, markdown, quarkdown]
 ---
 
-# Introduction
+## Introduction
 
 Ceci est un exemple de fichier Markdown avec du **gras** et de l'*italique*.
 
