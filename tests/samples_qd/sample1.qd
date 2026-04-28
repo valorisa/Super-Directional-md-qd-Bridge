@@ -1,0 +1,20 @@
+.title {Exemple de Document}
+.author {valorisa}
+.lang {fr}
+
+# Introduction
+
+Ceci est un exemple de fichier Quarkdown avec du **gras** et de l'*italique*.
+
+## Liste des tâches
+
+- Élément 1
+- Élément 2
+
+> Une citation importante.
+
+<div class="info">
+Ceci est un bloc d'information spécifique à Pandoc.
+</div>
+
+Fin du document.
