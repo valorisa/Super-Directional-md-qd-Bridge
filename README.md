@@ -5,6 +5,7 @@
 ![Status: Active](https://img.shields.io/badge/Status-Active-brightgreen.svg)
 ![GitHub: valorisa](https://img.shields.io/badge/GitHub-valorisa--black?logo=github)
 ![Tests: Passing](https://img.shields.io/badge/Tests-7%2F7%20passing-success?logo=pytest)
+[![Dependency Graph](https://github.com/valorisa/Super-Directional-md-qd-Bridge/actions/workflows/dependabot/update-graph/badge.svg?branch=master)](https://github.com/valorisa/Super-Directional-md-qd-Bridge/actions/workflows/dependabot/update-graph)
 
 **Super-Directional-md-qd-Bridge** est un convertisseur bidirectionnel complet et robuste entre les fichiers **Markdown standard (.md)** et le format **Quarkdown (.qd)**. Ce projet répond au besoin croissant de faire cohabiter l'écosystème Markdown classique avec Quarkdown, un système de typographie moderne et Turing-complet basé sur Markdown.
 
