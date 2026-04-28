@@ -11,7 +11,7 @@
 
 ## Table des matières
 
-- [Super-Directional-md-qd-Bridge](#super-directional-md-qd-bridge)
+- [Super-Bidirectional-md-qd-Bridge](#super-bidirectional-md-qd-bridge)
   - [Table des matières](#table-des-matières)
   - [Introduction](#introduction)
   - [Pourquoi ce projet](#pourquoi-ce-projet)
